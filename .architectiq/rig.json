@@ -12,7 +12,7 @@
         "isEntry": false,
         "path": "index.js",
         "external": false,
-        "contentPreview": "console.log(\"Start of proj\");\n"
+        "contentPreview": "console.log(\"Start of project\");\n"
       },
       "evidence": [
         "index.js"
@@ -31,7 +31,7 @@
         "isEntry": false,
         "path": "package-lock.json",
         "external": false,
-        "contentPreview": "{\n  \"name\": \"proj-management-sys\",\n  \"version\": \"1.0.0\",\n  \"lockfileVersion\": 3,\n  \"requires\": true,\n  \"packages\": {\n    \"\": {\n      \"name\": \"proj-management-sys\",\n      \"version\": \"1.0.0\",\n      \"license\": \"ISC\",\n      \"devDependencies\": {\n        \"prettier\": \"3.9.6\"\n      }\n    },\n    \"node_modules/prettier\": {\n      \"version\": \"3.9.6\",\n      \"resolved\": \"https://registry.npmjs.org/prettier/-/prettier-3.9.6.tgz\",\n      \"integrity\": \"sha512-OpN0zzVdiaiAhxpuuj5efpIS4sY9j7bY6uR5mnj5yPzGkdkjNKSJeUThPb60Jw29QuAZgA4o+/iB49kFiaBX6g==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"bin\": {\n        \"prettier\": \"bin/prettier.cjs\"\n      },\n      \"engines\": {\n        \"node\": \">=14\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/prettier/prettier?sponsor=1\"\n      }\n    }\n  }\n}\n"
+        "contentPreview": "{\n  \"name\": \"proj-management-sys\",\n  \"version\": \"1.0.0\",\n  \"lockfileVersion\": 3,\n  \"requires\": true,\n  \"packages\": {\n    \"\": {\n      \"name\": \"proj-management-sys\",\n      \"version\": \"1.0.0\",\n      \"license\": \"ISC\",\n      \"devDependencies\": {\n        \"nodemon\": \"^3.1.14\",\n        \"prettier\": \"3.9.6\"\n      }\n    },\n    \"node_modules/anymatch\": {\n      \"version\": \"3.1.3\",\n      \"resolved\": \"https://registry.npmjs.org/anymatch/-/anymatch-3.1.3.tgz\",\n      \"integrity\": \"sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==\",\n      \"dev\": true,\n      \"license\": \"ISC\",\n      \"dependencies\": {\n        \"normalize-path\": \"^3.0.0\",\n        \"picomatch\": \"^2.0.4\"\n      },\n      \"engines\": {\n        \"node\": \">= 8\"\n      }\n    },\n    \"node_modules/balanced-match\": {\n      \"version\": \"4.0.4\",\n      \"resolved\": \"https://registry.npmjs.org/balanced-match/-/balanced-match-4.0.4.tgz\",\n      \"integrity\": \"sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"engines\": {\n        \"node\": \"18 || 20 || >=22\"\n      }\n    },\n    \"node_modules/binary-extensions\": {\n      \"version\": \"2.3.0\",\n      \"resolved\": \"https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.3.0.tgz\",\n      \"integrity\": \"sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"engines\": {\n        \""
       },
       "evidence": [
         "package-lock.json"
@@ -50,7 +50,7 @@
         "isEntry": false,
         "path": "package.json",
         "external": false,
-        "contentPreview": "{\n  \"name\": \"proj-management-sys\",\n  \"version\": \"1.0.0\",\n  \"description\": \"a project management application\",\n  \"keywords\": [\n    \"backend\",\n    \"api\"\n  ],\n  \"license\": \"ISC\",\n  \"author\": \"Saksham Midha\",\n  \"type\": \"module\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"dev\": \"node index.js\"\n  },\n  \"devDependencies\": {\n    \"prettier\": \"3.9.6\"\n  }\n}\n"
+        "contentPreview": "{\n  \"name\": \"proj-management-sys\",\n  \"version\": \"1.0.0\",\n  \"description\": \"a project management application\",\n  \"keywords\": [\n    \"backend\",\n    \"api\"\n  ],\n  \"license\": \"ISC\",\n  \"author\": \"Saksham Midha\",\n  \"type\": \"module\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"dev\": \"nodemon index.js\",\n    \"start\": \"node index.js\"\n  },\n  \"devDependencies\": {\n    \"nodemon\": \"^3.1.14\",\n    \"prettier\": \"3.9.6\"\n  }\n}\n"
       },
       "evidence": [
         "package.json"
@@ -60,12 +60,12 @@
   ],
   "edges": [],
   "metadata": {
-    "generated_at": "2026-08-18T12:19:04.288Z",
+    "generated_at": "2026-08-18T12:31:33.185Z",
     "workspace_root": "g:\\Study\\proj-management-sys",
     "node_count": 3,
     "edge_count": 0,
     "stack": "Javascript · imports: relative imports",
-    "file_hash": "0a4459933e8443ba",
+    "file_hash": "c6c524c023a2d865",
     "confidence_counts": {
       "high": 0,
       "medium": 0,
@@ -94,17 +94,72 @@
           "file": "package.json"
         }
       ],
-      "edges": []
+      "edges": [
+        {
+          "source": "FILE::index.js",
+          "target": "FILE::package-lock.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package-lock.json",
+          "target": "FILE::index.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::index.js",
+          "target": "FILE::package.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package.json",
+          "target": "FILE::index.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package-lock.json",
+          "target": "FILE::package.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package.json",
+          "target": "FILE::package-lock.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        }
+      ]
     },
     "debugLog": [
-      "git coupling scores: 0",
+      "git coupling scores: 6",
       "AST extraction summary: files=3",
       "functions parsed: 0",
       "call edges created: 0",
       "resolved calls: 0",
       "calls ignored: 0",
       "dependency edges: 0",
-      "git coupling edges: 0"
+      "git coupling edges: 6"
     ]
   }
 }
