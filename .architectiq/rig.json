@@ -1,0 +1,110 @@
+{
+  "nodes": [
+    {
+      "kind": "component",
+      "name": "index.js",
+      "properties": {
+        "role": "component",
+        "language": "javascript",
+        "exports": [],
+        "classes": [],
+        "functions": [],
+        "isEntry": false,
+        "path": "index.js",
+        "external": false,
+        "contentPreview": "console.log(\"Start of proj\");\n"
+      },
+      "evidence": [
+        "index.js"
+      ],
+      "id": "component:a77b15c0d64cf611"
+    },
+    {
+      "kind": "module",
+      "name": "package-lock.json",
+      "properties": {
+        "role": "unknown",
+        "language": "json",
+        "exports": [],
+        "classes": [],
+        "functions": [],
+        "isEntry": false,
+        "path": "package-lock.json",
+        "external": false,
+        "contentPreview": "{\n  \"name\": \"proj-management-sys\",\n  \"version\": \"1.0.0\",\n  \"lockfileVersion\": 3,\n  \"requires\": true,\n  \"packages\": {\n    \"\": {\n      \"name\": \"proj-management-sys\",\n      \"version\": \"1.0.0\",\n      \"license\": \"ISC\",\n      \"devDependencies\": {\n        \"prettier\": \"3.9.6\"\n      }\n    },\n    \"node_modules/prettier\": {\n      \"version\": \"3.9.6\",\n      \"resolved\": \"https://registry.npmjs.org/prettier/-/prettier-3.9.6.tgz\",\n      \"integrity\": \"sha512-OpN0zzVdiaiAhxpuuj5efpIS4sY9j7bY6uR5mnj5yPzGkdkjNKSJeUThPb60Jw29QuAZgA4o+/iB49kFiaBX6g==\",\n      \"dev\": true,\n      \"license\": \"MIT\",\n      \"bin\": {\n        \"prettier\": \"bin/prettier.cjs\"\n      },\n      \"engines\": {\n        \"node\": \">=14\"\n      },\n      \"funding\": {\n        \"url\": \"https://github.com/prettier/prettier?sponsor=1\"\n      }\n    }\n  }\n}\n"
+      },
+      "evidence": [
+        "package-lock.json"
+      ],
+      "id": "module:fa288d1472d29bec"
+    },
+    {
+      "kind": "module",
+      "name": "package.json",
+      "properties": {
+        "role": "config",
+        "language": "json",
+        "exports": [],
+        "classes": [],
+        "functions": [],
+        "isEntry": false,
+        "path": "package.json",
+        "external": false,
+        "contentPreview": "{\n  \"name\": \"proj-management-sys\",\n  \"version\": \"1.0.0\",\n  \"description\": \"a project management application\",\n  \"keywords\": [\n    \"backend\",\n    \"api\"\n  ],\n  \"license\": \"ISC\",\n  \"author\": \"Saksham Midha\",\n  \"type\": \"module\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"dev\": \"node index.js\"\n  },\n  \"devDependencies\": {\n    \"prettier\": \"3.9.6\"\n  }\n}\n"
+      },
+      "evidence": [
+        "package.json"
+      ],
+      "id": "module:7030d0b2f71b999f"
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "generated_at": "2026-08-18T12:19:04.288Z",
+    "workspace_root": "g:\\Study\\proj-management-sys",
+    "node_count": 3,
+    "edge_count": 0,
+    "stack": "Javascript · imports: relative imports",
+    "file_hash": "0a4459933e8443ba",
+    "confidence_counts": {
+      "high": 0,
+      "medium": 0,
+      "low": 0
+    }
+  },
+  "intelligence": {
+    "codeGraph": {
+      "nodes": [
+        {
+          "id": "FILE::index.js",
+          "type": "FILE",
+          "name": "index.js",
+          "file": "index.js"
+        },
+        {
+          "id": "FILE::package-lock.json",
+          "type": "FILE",
+          "name": "package-lock.json",
+          "file": "package-lock.json"
+        },
+        {
+          "id": "FILE::package.json",
+          "type": "FILE",
+          "name": "package.json",
+          "file": "package.json"
+        }
+      ],
+      "edges": []
+    },
+    "debugLog": [
+      "git coupling scores: 0",
+      "AST extraction summary: files=3",
+      "functions parsed: 0",
+      "call edges created: 0",
+      "resolved calls: 0",
+      "calls ignored: 0",
+      "dependency edges: 0",
+      "git coupling edges: 0"
+    ]
+  }
+}
