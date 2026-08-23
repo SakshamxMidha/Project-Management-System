@@ -1,2 +1,6 @@
 node_modules
+.env
+# ArchitectIQ graph cache
+.architectiq/
 env
+
