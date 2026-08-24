@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import bcryct from "bcryct";
 
 const UserSchema = new Schema(
   {
@@ -59,5 +60,13 @@ const UserSchema = new Schema(
     timestamps: true,
   },
 );
+
+UserSchema.pre("save", async function(next){
+
+  if(!this.isModified("password")) return next()
+
+  this.passwords = await bcryct.hash(this.passwords, 10)
+  next()
+})
 
 export const User = mongoose.model("User", UserSchema);

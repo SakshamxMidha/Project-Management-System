@@ -130,7 +130,7 @@
         "isEntry": false,
         "path": "src/models/user-models.js",
         "external": false,
-        "contentPreview": "import mongoose, { Schema } from \"mongoose\";\r\n\r\nconst UserSchema = new Schema(\r\n  {\r\n    avatar: {\r\n      type: {\r\n        url: String,\r\n        localPath: String,\r\n      },\r\n      default: {\r\n        url: `https://placehold.co/200x200`,\r\n        localPath: \"\",\r\n      },\r\n    },\r\n    username: {\r\n      type: String,\r\n      required: true,\r\n      unique: true,\r\n      index: true,\r\n      trim: true,\r\n    },\r\n    email: {\r\n      type: String,\r\n      required: true,\r\n      unique: true,\r\n      trim: true,\r\n      lowercase: true,\r\n    },\r\n    fullName: {\r\n      type: String,\r\n      trim: true,\r\n      required: true,\r\n    },\r\n    passwords: {\r\n      type: String,\r\n      required: [true, \"password is required\"],\r\n    },\r\n    isEmailVerified: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    refreshTokens: {\r\n      type: String,\r\n    },\r\n    forgotPasswordToken: {\r\n      type: String,\r\n    },\r\n    forgotPasswordExpiry: {\r\n      type: Date,\r\n    },\r\n    emailVerificationToken: {\r\n      type: String,\r\n    },\r\n    emailVerificationExpiry: {\r\n      type: Date,\r\n    },\r\n  },\r\n  {\r\n    timestamps: true,\r\n  },\r\n);\r\n\r\nexport const User = mongoose.model(\"User\", UserSchema);\r\n"
+        "contentPreview": "import mongoose, { Schema } from \"mongoose\";\r\nimport bcryct from \"bcryct\";\r\n\r\nconst UserSchema = new Schema(\r\n  {\r\n    avatar: {\r\n      type: {\r\n        url: String,\r\n        localPath: String,\r\n      },\r\n      default: {\r\n        url: `https://placehold.co/200x200`,\r\n        localPath: \"\",\r\n      },\r\n    },\r\n    username: {\r\n      type: String,\r\n      required: true,\r\n      unique: true,\r\n      index: true,\r\n      trim: true,\r\n    },\r\n    email: {\r\n      type: String,\r\n      required: true,\r\n      unique: true,\r\n      trim: true,\r\n      lowercase: true,\r\n    },\r\n    fullName: {\r\n      type: String,\r\n      trim: true,\r\n      required: true,\r\n    },\r\n    passwords: {\r\n      type: String,\r\n      required: [true, \"password is required\"],\r\n    },\r\n    isEmailVerified: {\r\n      type: Boolean,\r\n      default: false,\r\n    },\r\n    refreshTokens: {\r\n      type: String,\r\n    },\r\n    forgotPasswordToken: {\r\n      type: String,\r\n    },\r\n    forgotPasswordExpiry: {\r\n      type: Date,\r\n    },\r\n    emailVerificationToken: {\r\n      type: String,\r\n    },\r\n    emailVerificationExpiry: {\r\n      type: Date,\r\n    },\r\n  },\r\n  {\r\n    timestamps: true,\r\n  },\r\n);\r\n\r\nUserSchema.pre(\"save\", async function(next){\r\n\r\n  if(!this.isModified(\"password\")) return next()\r\n\r\n  this.passwords = await bcryct.hash(this.passwords, 10)\r\n  next()\r\n})\r\n\r\nexport const User = mongoose.model(\"User\", UserSchema);\r\n"
       },
       "evidence": [
         "src/models/user-models.js"
@@ -325,12 +325,12 @@
     }
   ],
   "metadata": {
-    "generated_at": "2026-08-23T20:10:06.182Z",
+    "generated_at": "2026-08-24T14:08:06.876Z",
     "workspace_root": "e:\\Study\\proj-management-sys",
     "node_count": 12,
     "edge_count": 6,
     "stack": "Javascript Express.js · DB: Mongoose (MongoDB) · imports: relative imports (e.g. ../components/Button)",
-    "file_hash": "0b2c69376d79164e",
+    "file_hash": "1730ddec1a5492df",
     "confidence_counts": {
       "high": 6,
       "medium": 0,
@@ -793,18 +793,1206 @@
           "source": "FILE::src/routes/healthcheck_router.js",
           "target": "FILE::src/controllers/healthcheck_controller.js",
           "type": "IMPORTS"
+        },
+        {
+          "source": "FILE::package-lock.json",
+          "target": "FILE::package.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 3
+          }
+        },
+        {
+          "source": "FILE::package.json",
+          "target": "FILE::package-lock.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 3
+          }
+        },
+        {
+          "source": "FILE::package-lock.json",
+          "target": "FILE::src/app.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/app.js",
+          "target": "FILE::package-lock.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package-lock.json",
+          "target": "FILE::src/controllers/healthcheck_controller.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/controllers/healthcheck_controller.js",
+          "target": "FILE::package-lock.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package-lock.json",
+          "target": "FILE::src/db/db.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/db/db.js",
+          "target": "FILE::package-lock.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package-lock.json",
+          "target": "FILE::src/index.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/index.js",
+          "target": "FILE::package-lock.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package-lock.json",
+          "target": "FILE::src/models/user-models.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/models/user-models.js",
+          "target": "FILE::package-lock.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package-lock.json",
+          "target": "FILE::src/routes/healthcheck_router.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/routes/healthcheck_router.js",
+          "target": "FILE::package-lock.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package-lock.json",
+          "target": "FILE::src/utils/api-error.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-error.js",
+          "target": "FILE::package-lock.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package-lock.json",
+          "target": "FILE::src/utils/api-response.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-response.js",
+          "target": "FILE::package-lock.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package-lock.json",
+          "target": "FILE::src/utils/asyncHandler.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/asyncHandler.js",
+          "target": "FILE::package-lock.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package-lock.json",
+          "target": "FILE::src/utils/constants.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/constants.js",
+          "target": "FILE::package-lock.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package.json",
+          "target": "FILE::src/app.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/app.js",
+          "target": "FILE::package.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package.json",
+          "target": "FILE::src/controllers/healthcheck_controller.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/controllers/healthcheck_controller.js",
+          "target": "FILE::package.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package.json",
+          "target": "FILE::src/db/db.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/db/db.js",
+          "target": "FILE::package.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package.json",
+          "target": "FILE::src/index.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/index.js",
+          "target": "FILE::package.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package.json",
+          "target": "FILE::src/models/user-models.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/models/user-models.js",
+          "target": "FILE::package.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package.json",
+          "target": "FILE::src/routes/healthcheck_router.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/routes/healthcheck_router.js",
+          "target": "FILE::package.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package.json",
+          "target": "FILE::src/utils/api-error.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-error.js",
+          "target": "FILE::package.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package.json",
+          "target": "FILE::src/utils/api-response.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-response.js",
+          "target": "FILE::package.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package.json",
+          "target": "FILE::src/utils/asyncHandler.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/asyncHandler.js",
+          "target": "FILE::package.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::package.json",
+          "target": "FILE::src/utils/constants.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/constants.js",
+          "target": "FILE::package.json",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/app.js",
+          "target": "FILE::src/controllers/healthcheck_controller.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/controllers/healthcheck_controller.js",
+          "target": "FILE::src/app.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/app.js",
+          "target": "FILE::src/db/db.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/db/db.js",
+          "target": "FILE::src/app.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/app.js",
+          "target": "FILE::src/index.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/index.js",
+          "target": "FILE::src/app.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/app.js",
+          "target": "FILE::src/models/user-models.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/models/user-models.js",
+          "target": "FILE::src/app.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/app.js",
+          "target": "FILE::src/routes/healthcheck_router.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/routes/healthcheck_router.js",
+          "target": "FILE::src/app.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/app.js",
+          "target": "FILE::src/utils/api-error.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-error.js",
+          "target": "FILE::src/app.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/app.js",
+          "target": "FILE::src/utils/api-response.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-response.js",
+          "target": "FILE::src/app.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/app.js",
+          "target": "FILE::src/utils/asyncHandler.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/asyncHandler.js",
+          "target": "FILE::src/app.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/app.js",
+          "target": "FILE::src/utils/constants.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/constants.js",
+          "target": "FILE::src/app.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/controllers/healthcheck_controller.js",
+          "target": "FILE::src/db/db.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/db/db.js",
+          "target": "FILE::src/controllers/healthcheck_controller.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/controllers/healthcheck_controller.js",
+          "target": "FILE::src/index.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/index.js",
+          "target": "FILE::src/controllers/healthcheck_controller.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/controllers/healthcheck_controller.js",
+          "target": "FILE::src/models/user-models.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/models/user-models.js",
+          "target": "FILE::src/controllers/healthcheck_controller.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/controllers/healthcheck_controller.js",
+          "target": "FILE::src/routes/healthcheck_router.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/routes/healthcheck_router.js",
+          "target": "FILE::src/controllers/healthcheck_controller.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/controllers/healthcheck_controller.js",
+          "target": "FILE::src/utils/api-error.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-error.js",
+          "target": "FILE::src/controllers/healthcheck_controller.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/controllers/healthcheck_controller.js",
+          "target": "FILE::src/utils/api-response.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-response.js",
+          "target": "FILE::src/controllers/healthcheck_controller.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/controllers/healthcheck_controller.js",
+          "target": "FILE::src/utils/asyncHandler.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/asyncHandler.js",
+          "target": "FILE::src/controllers/healthcheck_controller.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/controllers/healthcheck_controller.js",
+          "target": "FILE::src/utils/constants.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/constants.js",
+          "target": "FILE::src/controllers/healthcheck_controller.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/db/db.js",
+          "target": "FILE::src/index.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/index.js",
+          "target": "FILE::src/db/db.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/db/db.js",
+          "target": "FILE::src/models/user-models.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/models/user-models.js",
+          "target": "FILE::src/db/db.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/db/db.js",
+          "target": "FILE::src/routes/healthcheck_router.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/routes/healthcheck_router.js",
+          "target": "FILE::src/db/db.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/db/db.js",
+          "target": "FILE::src/utils/api-error.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-error.js",
+          "target": "FILE::src/db/db.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/db/db.js",
+          "target": "FILE::src/utils/api-response.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-response.js",
+          "target": "FILE::src/db/db.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/db/db.js",
+          "target": "FILE::src/utils/asyncHandler.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/asyncHandler.js",
+          "target": "FILE::src/db/db.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/db/db.js",
+          "target": "FILE::src/utils/constants.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/constants.js",
+          "target": "FILE::src/db/db.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/index.js",
+          "target": "FILE::src/models/user-models.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/models/user-models.js",
+          "target": "FILE::src/index.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/index.js",
+          "target": "FILE::src/routes/healthcheck_router.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/routes/healthcheck_router.js",
+          "target": "FILE::src/index.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/index.js",
+          "target": "FILE::src/utils/api-error.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-error.js",
+          "target": "FILE::src/index.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/index.js",
+          "target": "FILE::src/utils/api-response.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-response.js",
+          "target": "FILE::src/index.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/index.js",
+          "target": "FILE::src/utils/asyncHandler.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/asyncHandler.js",
+          "target": "FILE::src/index.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/index.js",
+          "target": "FILE::src/utils/constants.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/constants.js",
+          "target": "FILE::src/index.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/models/user-models.js",
+          "target": "FILE::src/routes/healthcheck_router.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/routes/healthcheck_router.js",
+          "target": "FILE::src/models/user-models.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/models/user-models.js",
+          "target": "FILE::src/utils/api-error.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-error.js",
+          "target": "FILE::src/models/user-models.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/models/user-models.js",
+          "target": "FILE::src/utils/api-response.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-response.js",
+          "target": "FILE::src/models/user-models.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/models/user-models.js",
+          "target": "FILE::src/utils/asyncHandler.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/asyncHandler.js",
+          "target": "FILE::src/models/user-models.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/models/user-models.js",
+          "target": "FILE::src/utils/constants.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/constants.js",
+          "target": "FILE::src/models/user-models.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/routes/healthcheck_router.js",
+          "target": "FILE::src/utils/api-error.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-error.js",
+          "target": "FILE::src/routes/healthcheck_router.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/routes/healthcheck_router.js",
+          "target": "FILE::src/utils/api-response.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-response.js",
+          "target": "FILE::src/routes/healthcheck_router.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/routes/healthcheck_router.js",
+          "target": "FILE::src/utils/asyncHandler.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/asyncHandler.js",
+          "target": "FILE::src/routes/healthcheck_router.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/routes/healthcheck_router.js",
+          "target": "FILE::src/utils/constants.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/constants.js",
+          "target": "FILE::src/routes/healthcheck_router.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-error.js",
+          "target": "FILE::src/utils/api-response.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-response.js",
+          "target": "FILE::src/utils/api-error.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-error.js",
+          "target": "FILE::src/utils/asyncHandler.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/asyncHandler.js",
+          "target": "FILE::src/utils/api-error.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-error.js",
+          "target": "FILE::src/utils/constants.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/constants.js",
+          "target": "FILE::src/utils/api-error.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-response.js",
+          "target": "FILE::src/utils/asyncHandler.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/asyncHandler.js",
+          "target": "FILE::src/utils/api-response.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/api-response.js",
+          "target": "FILE::src/utils/constants.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/constants.js",
+          "target": "FILE::src/utils/api-response.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/asyncHandler.js",
+          "target": "FILE::src/utils/constants.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
+        },
+        {
+          "source": "FILE::src/utils/constants.js",
+          "target": "FILE::src/utils/asyncHandler.js",
+          "type": "CO_CHANGES",
+          "weight": 1,
+          "metadata": {
+            "count": 1
+          }
         }
       ]
     },
     "debugLog": [
-      "git coupling scores: unavailable",
+      "git coupling scores: 132",
       "AST extraction summary: files=12",
       "functions parsed: 2",
       "call edges created: 0",
       "resolved calls: 0",
       "calls ignored: 8",
       "dependency edges: 6",
-      "git coupling edges: 0"
+      "git coupling edges: 132"
     ]
   }
 }
