@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import bcryct from "bcryct";
 import jwt from "jsonwebtoken";
-import crypto from "crypto"
+import crypto from "crypto";
 
 const UserSchema = new Schema(
   {
@@ -94,6 +94,18 @@ UserSchema.methods.generateRefreshToken = function () {
     process.env.REFRESH_TOKEN_SECRET,
     { expiresIn: process.env.REFRESH_TOKEN_EXPIRY },
   );
+};
+
+UserSchema.methods.generateTempToken = function () {
+  const unHashToken = crypto.randomBytes(20).toString("hex");
+
+  const HashToken = crypto
+    .createHash("sha256")
+    .update(unHashToken)
+    .digest("hex");
+
+  const TokenExpiry = Date.now() + 20 * 60 * 1000; //20mins
+  return { unHashToken, HashToken, TokenExpiry };
 };
 
 export const User = mongoose.model("User", UserSchema);
