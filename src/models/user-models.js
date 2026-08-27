@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import bcryct from "bcryct";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
@@ -32,9 +32,8 @@ const UserSchema = new Schema(
     fullName: {
       type: String,
       trim: true,
-      required: true,
     },
-    passwords: {
+    password: {
       type: String,
       required: [true, "password is required"],
     },
@@ -64,10 +63,9 @@ const UserSchema = new Schema(
 );
 
 UserSchema.pre("save", async function (next) {
-  if (!this.isModified("passwords")) return next();
+  if (!this.isModified("password")) return ;
 
-  this.passwords = await bcryct.hash(this.passwords, 10);
-  next();
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
 UserSchema.methods.isPasswordCorrect = async function (passwords) {

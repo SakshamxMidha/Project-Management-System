@@ -1,6 +1,10 @@
 import express, { urlencoded } from "express";
 import cors from "cors"
 
+//import healthcheck and use
+import healthcheckRoutes from "./routes/healthcheck_router.js"
+import authRouter from "./routes/auth-router.js"
+
 const app = express();
 
 //basics config middleware
@@ -26,8 +30,8 @@ app.get("/hell", (req, res) => {
   res.send("this is HELL");
 });
 
-//import healthcheck and use
-import healthcheckRoutes from "./routes/healthcheck_router.js"
+//Routes
 app.use("/api/v1/healthcheck",healthcheckRoutes)
+app.use("/api/v1/auth",authRouter)
 
 export default app;

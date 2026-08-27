@@ -45,7 +45,7 @@ const emailVerification = (username, verificationURL) => {
         instructions: "To verify please click on the following button",
         button: {
           color: "#22BC66",
-          text: "verifu your email",
+          text: "verify your email",
           link: verificationURL,
         },
       },

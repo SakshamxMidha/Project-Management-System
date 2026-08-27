@@ -1,0 +1,8 @@
+workspace:
+  id: 37c2fc67-7df2-467f-8076-97622f751399
+cloudResources:
+  globals:
+    ../postman/globals/workspace.globals.yaml: 806cf481-8f5b-46f4-8aa4-ff46018967bd
+  collections:
+    ../postman/collections/basecamp: 57532933-4b2217f9-bc0f-457b-9ef1-0c970718b236
+    ../postman/collections/My Collection: 57532933-3bf6903e-a51d-434d-a3fc-086743f58e54
