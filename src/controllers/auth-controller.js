@@ -61,11 +61,9 @@ const registerUser = asyncHandler(async (req, res) => {
     ),
   });
 
-  const createdUser = await User
-    .findById(user._id)
-    .select(
-      "-password -emailVerificationExpiry -emailVerificationToken -refreshTokens",
-    );
+  const createdUser = await User.findById(user._id).select(
+    "-password -emailVerificationExpiry -emailVerificationToken -refreshTokens",
+  );
 
   if (!createdUser) {
     throw new APiError(500, "something went wrong", []);
@@ -82,4 +80,49 @@ const registerUser = asyncHandler(async (req, res) => {
     );
 });
 
-export { registerUser };
+const userLogin = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email) {
+    throw new APiError(402, "Email is required");
+  }
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new APiError(403, "user does not exist");
+  }
+
+  const isPasswordvalid = await user.isPasswordCorrect(password);
+
+  if (!isPasswordvalid) {
+    throw new APiError(404, "wrong password");
+  }
+
+  const { accessToken, refreshTokens } = generateAceessTokenandRefreshToken(
+    user._id,
+  );
+
+  const loggedInUser = await User.findById(user._id).select(
+    "-password -emailVerificationExpiry -emailVerificationToken -refreshTokens",
+  );
+
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  return res
+    .status(200)
+    .cookie("accesstoken", accessToken, options)
+    .cookie("refreshtoken", refreshTokens, options)
+    .json(
+      new APiresponse(
+        200,
+        { user: loggedInUser, accessToken, refreshTokens },
+        "User logged in successfully",
+      ),
+    );
+});
+
+export { registerUser, userLogin };
