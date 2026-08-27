@@ -99,7 +99,7 @@ const userLogin = asyncHandler(async (req, res) => {
     throw new APiError(404, "wrong password");
   }
 
-  const { accessToken, refreshTokens } = generateAceessTokenandRefreshToken(
+  const { accessToken, refreshTokens } = await generateAceessTokenandRefreshToken(
     user._id,
   );
 
