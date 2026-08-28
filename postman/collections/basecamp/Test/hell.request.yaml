@@ -1,9 +1,0 @@
-$kind: http-request
-name: hell
-url: "{{base}}/hell"
-method: GET
-headers:
-  Content-Type: ""
-  Authorization: ""
-settings: {}
-order: 2000

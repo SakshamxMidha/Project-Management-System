@@ -1,8 +1,5 @@
-node_modules
+node_modules/
 .env
-# ArchitectIQ graph cache
 .architectiq/
-env
 postman/
 .postman/
-
