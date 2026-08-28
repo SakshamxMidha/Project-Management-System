@@ -3,4 +3,6 @@ node_modules
 # ArchitectIQ graph cache
 .architectiq/
 env
+postman/
+.postman/
 

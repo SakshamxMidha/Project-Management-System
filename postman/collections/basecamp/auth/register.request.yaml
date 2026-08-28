@@ -9,7 +9,7 @@ body:
   type: json
   content: "{\r
 
-    \    \"email\":\"one.com\",\r
+    \    \"email\":\"one@one.com\",\r
 
     \    \"username\": \"one\",\r
 
@@ -17,4 +17,4 @@ body:
 
     }"
 settings: {}
-order: 1000
+order: 2000
