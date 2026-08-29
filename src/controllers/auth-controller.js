@@ -4,6 +4,7 @@ import { APiError } from "../utils/api-error.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { emailVerification, SendEmail } from "../utils/mail.js";
 import Mailgen from "mailgen";
+import crypto from "crypto";
 
 const generateAceessTokenandRefreshToken = async (userId) => {
   try {
@@ -23,7 +24,7 @@ const generateAceessTokenandRefreshToken = async (userId) => {
   }
 };
 
-const registerUser = asyncHandler(async (req, res) => {
+export const registerUser = asyncHandler(async (req, res) => {
   const { username, email, role, password } = req.body;
 
   const existedUser = await User.findOne({
@@ -80,7 +81,7 @@ const registerUser = asyncHandler(async (req, res) => {
     );
 });
 
-const userLogin = asyncHandler(async (req, res) => {
+export const userLogin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   if (!email) {
@@ -124,7 +125,7 @@ const userLogin = asyncHandler(async (req, res) => {
     );
 });
 
-const userLogout = asyncHandler(async (req, res) => {
+export const userLogout = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
     {
@@ -149,4 +150,50 @@ const userLogout = asyncHandler(async (req, res) => {
     .json(new APiresponse(200, {}, "user logged out successfully"));
 });
 
-export { registerUser, userLogin, userLogout };
+export const getCurrentUser = asyncHandler(async (req, res) => {
+  return res
+    .status(200)
+    .json(new APiresponse(200, req.user, "User fetched successfully"));
+});
+
+export const verifyEmail = asyncHandler(async (req, res) => {
+  const { verificationToken } = req.params;
+
+  if (!verificationToken) {
+    throw new APiError(500, "Email verification token is missing");
+  }
+
+  let hashedToken = crypto
+    .createHash("sha256")
+    .update(verificationToken)
+    .digest("hex");
+
+  const user = await User.findOne({
+    emailVerificationToken: hashedToken,
+    emailVerificationExpiry: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    throw new APiError(500, "Email verification token is invalid or expired");
+  }
+
+  user.emailVerificationToken = undefined;
+  user.emailVerificationExpiry = undefined;
+
+  user.isEmailVerified = true;
+  await user.save({ validateBeforeSave: false });
+
+  return res
+    .status(200)
+    .json(
+      new APiresponse(
+        200,
+        { isEmailVerified: true },
+        "your Email is now verified",
+      ),
+    );
+});
+
+export const resendVerificationEmail = asyncHandler(async (req, res) => {
+  const user = 
+});
