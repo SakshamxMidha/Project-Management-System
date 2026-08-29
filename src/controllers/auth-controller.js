@@ -5,6 +5,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { emailVerification, SendEmail } from "../utils/mail.js";
 import Mailgen from "mailgen";
 import crypto from "crypto";
+import jwt from "jsonwebtoken";
 
 const generateAceessTokenandRefreshToken = async (userId) => {
   try {
@@ -195,5 +196,82 @@ export const verifyEmail = asyncHandler(async (req, res) => {
 });
 
 export const resendVerificationEmail = asyncHandler(async (req, res) => {
-  const user = 
+  const user = await findOne(user.req?._id);
+
+  if (!user) {
+    throw new APiError(500, "User not found");
+  }
+
+  if (user.isEmailVerified) {
+    throw new APiError(500, "User already verified");
+  }
+
+  const { unHashToken, HashToken, TokenExpiry } = user.generateTempToken();
+
+  user.emailVerificationToken = HashToken;
+  user.emailVerificationExpiry = TokenExpiry;
+
+  await user.save({ validateBeforeSave: false });
+
+  await SendEmail({
+    email: user?.email,
+    subject: "Verify your email",
+    mailgenContent: emailVerification(
+      user.username,
+      `${req.protocol}://${req.get("host")}/api/v1/users/verify-email/${unHashToken}`,
+    ),
+  });
+
+  return res.status(200).json(new APiresponse(200, "verification email sent"));
+});
+
+export const refreshAcessToken = asyncHandler(async (req, res) => {
+  const incomingRefreshToken =
+    req.cookies?.refreshToken || req.body?.refreshToken;
+
+  if (!incomingRefreshToken) {
+    throw new APiError(401, "Unauthorized access");
+  }
+
+  try {
+    const decodedToken = jwt.verify(
+      incomingRefreshToken,
+      process.env.REFRESH_TOKEN_SECRET,
+    );
+
+    const user = await User.findById(decodedToken?._id);
+
+    if (!user) {
+      throw new APiError(401, "Invalid Refresh Token");
+    }
+
+    if (incomingRefreshToken !== user?.refreshTokens) {
+      throw new APiError(401, "Refresh Token is expired");
+    }
+
+    const options = {
+      httpOnly: true,
+      secure: true,
+    };
+
+    const { accessToken, refreshToken: new_refreshToken } =
+      await generateAceessTokenandRefreshToken(user._id);
+
+    user.refreshTokens = new_refreshToken;
+    await user.save();
+
+    return res
+      .status(200)
+      .cookie("accessToken", accessToken, options)
+      .cookie("refreshToken", new_refreshToken, options)
+      .json(
+        new APiresponse(
+          200,
+          { accessToken, refreshToken: new_refreshToken },
+          "Access Token refresh",
+        ),
+      );
+  } catch (error) {
+    throw new APiError(401, "Invalid Refresh Token");
+  }
 });
