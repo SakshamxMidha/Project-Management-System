@@ -2,7 +2,11 @@ import { User } from "../models/user-models.js";
 import { APiresponse } from "../utils/api-response.js";
 import { APiError } from "../utils/api-error.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { emailVerification, SendEmail } from "../utils/mail.js";
+import {
+  emailPasswordreset,
+  emailVerification,
+  SendEmail,
+} from "../utils/mail.js";
 import Mailgen from "mailgen";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
@@ -274,4 +278,34 @@ export const refreshAcessToken = asyncHandler(async (req, res) => {
   } catch (error) {
     throw new APiError(401, "Invalid Refresh Token");
   }
+});
+
+export const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new APiError(404, "User not found");
+  }
+
+  const { unHashToken, HashToken, TokenExpiry } = generateTempToken();
+
+  user.forgotPasswordToken = HashToken;
+  user.forgotPasswordExpiry = TokenExpiry;
+
+  await user.save({ validateBeforeSave: false });
+
+  await SendEmail({
+    email: user?.email,
+    subject: "Password Reset email request",
+    mailgenContent: emailPasswordreset(
+      user.username,
+      `${process.env.PASSWORD_RESET_URL}/${unHashToken}`,
+    ),
+  });
+
+  return res
+    .status(200)
+    .json(200, {}, "password reset email sent on your mail id");
 });
