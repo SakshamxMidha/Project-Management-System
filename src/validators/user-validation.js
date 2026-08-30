@@ -36,4 +36,15 @@ const loginValidator = () => {
   ];
 };
 
-export { userValidation, loginValidator };
+const CurrentPasswordValidator = () => {
+  body("oldPass")
+      .notEmpty()
+      .withMessage("old password is required")
+
+  body("newPass")
+      .notEmpty()
+      .withMessage("new password is required")
+  
+}
+
+export { userValidation, loginValidator, CurrentPasswordValidator };
