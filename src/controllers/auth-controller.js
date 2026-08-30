@@ -200,7 +200,7 @@ export const verifyEmail = asyncHandler(async (req, res) => {
 });
 
 export const resendVerificationEmail = asyncHandler(async (req, res) => {
-  const user = await findOne(user.req?._id);
+  const user = await User.findById(req.user._id);
 
   if (!user) {
     throw new APiError(500, "User not found");
@@ -258,11 +258,11 @@ export const refreshAcessToken = asyncHandler(async (req, res) => {
       secure: true,
     };
 
-    const { accessToken, refreshToken: new_refreshToken } =
+    const { accessToken, refreshTokens: new_refreshToken } =
       await generateAceessTokenandRefreshToken(user._id);
 
     user.refreshTokens = new_refreshToken;
-    await user.save();
+    await user.save({ validateBeforeSave: false });
 
     return res
       .status(200)
@@ -289,7 +289,7 @@ export const forgotPassword = asyncHandler(async (req, res) => {
     throw new APiError(404, "User not found");
   }
 
-  const { unHashToken, HashToken, TokenExpiry } = generateTempToken();
+  const { unHashToken, HashToken, TokenExpiry } = user.generateTempToken();
 
   user.forgotPasswordToken = HashToken;
   user.forgotPasswordExpiry = TokenExpiry;
@@ -341,9 +341,9 @@ export const resetForgotPassword = asyncHandler(async (req, res) => {
 export const changeCurrentPassword = asyncHandler(async (req, res) => {
   const { oldPass, newPass } = req.body;
 
-  const user = await User.findById(user?._id);
+  const user = await User.findById(req.user._id);
 
-  const isPassValid = user.isPasswordCorrect(oldPass);
+  const isPassValid = await user.isPasswordCorrect(oldPass);
 
   if (!isPassValid) {
     throw new APiError(404, "Incorrect old password");
