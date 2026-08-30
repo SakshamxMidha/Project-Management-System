@@ -338,3 +338,21 @@ export const resetForgotPassword = asyncHandler(async (req, res) => {
     .json(new APiresponse(200, {}, "Password changed successfully"));
 });
 
+export const changeCurrentPassword = asyncHandler(async (req, res) => {
+  const { oldPass, newPass } = req.body;
+
+  const user = await User.findById(user?._id);
+
+  const isPassValid = user.isPasswordCorrect(oldPass);
+
+  if (!isPassValid) {
+    throw new APiError(404, "Incorrect old password");
+  }
+
+  user.password = newPass;
+  await user.save({ validateBeforeSave: false });
+
+  return res
+    .status(200)
+    .json(new APiresponse(200, {}, "Password changed successfully"));
+});
